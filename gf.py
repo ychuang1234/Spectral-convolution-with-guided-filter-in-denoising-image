@@ -3,6 +3,7 @@ import scipy as sp
 import scipy.ndimage
 import imageio
 from scipy.spatial.distance import cdist
+import cv2
 def box(img, r):
     """ O(1) box filter
         img - >= 2d image
@@ -178,6 +179,7 @@ def calc_degree_matrix_norm(a):
     return np.power(a.sum(axis=1)+1e-5,-0.5)
 
 def create_graph_lapl_norm(img):
+    print("img size:",img.shape)
     h,w,c = img.shape
     L_norm = np.zeros((w*h,w*h,c))
     for ch in range(c):
@@ -200,22 +202,25 @@ def create_graph_lapl_norm(img):
     return L_norm
 
 def test_gf():
-
-    test = imageio.imread('test.jpg').astype(np.float32) / 255
-    r = 8
-    eps = 0.05
+    test = imageio.imread('test_original.jpg').astype(np.float32) / 255
+    test_ds = cv2.resize(test,(50,67))
+    r = 2
+    eps = 0.001
     test_L = np.zeros((test.shape[0],test.shape[1],test.shape[2]))
     test_smoothed_L = np.zeros((test.shape[0],test.shape[1],test.shape[2]))
-    L = create_graph_lapl_norm(test)
+    L = create_graph_lapl_norm(test_ds)
 
     for ch in range(test.shape[2]):
-        test_L[:,:,ch] = np.matmul(L[:,:,ch],test[:,:,ch].reshape(-1,1)).reshape(test.shape[0],-1)
-    test_L_smoothed = guided_filter(test_L, test_L, r, eps)
-    test_smoothed = guided_filter(test, test, r, eps)
-
-    L_L = create_graph_lapl_norm(test_smoothed)
+        tmp = np.matmul(L[:,:,ch],test_ds[:,:,ch].reshape(-1,1)).reshape(test_ds.shape[0],-1)
+        #print(tmp.shape,test_L[:,:,ch].shape,cv2.resize(tmp,(test.shape[1],test.shape[0])).shape)
+        test_L[:,:,ch] = cv2.resize(tmp,(test.shape[1],test.shape[0]))
+    test_L_smoothed = guided_filter(test_L, test, r, eps)
+    test_smoothed = cv2.resize(guided_filter(test_ds, test_ds, r, eps),(test.shape[1],test.shape[0]))
+    test_smoothed_ds = cv2.resize(test_smoothed,(50,67))
+    L_L = create_graph_lapl_norm(test_smoothed_ds)
     for ch in range(test.shape[2]):
-        test_smoothed_L[:,:,ch] = np.matmul(L_L[:,:,ch],test_smoothed[:,:,ch].reshape(-1,1)).reshape(test.shape[0],-1)
+        tmp = np.matmul(L_L[:,:,ch],test_smoothed_ds[:,:,ch].reshape(-1,1)).reshape(test_ds.shape[0],-1)
+        test_smoothed_L[:,:,ch] = cv2.resize(tmp,(test.shape[1],test.shape[0]))
     imageio.imwrite('test_smoothed.jpg', test_smoothed)
     imageio.imwrite('test_L.jpg', test_L)
     imageio.imwrite('test_smoothed_L.jpg', test_smoothed_L)
