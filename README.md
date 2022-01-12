@@ -11,7 +11,7 @@ Normal convolution could be deal with data with regular coordination (e.g., Cart
 <p align="center">
 <img src="https://github.com/ychuang1234/Spectral-convolution-with-guided-filter-in-denoising-image/blob/412cabe205045339f7b8a942a5eed8f43c078790/spectral_conv.JPG" width="80%"></p>  
   
-  ## Experiment procedure and result
+  ## Experiment and result
 
   In order to show if intra-pixels information as guided filter could benefit the output of the denoising image , I make two images, which are from **spectral convolution** and **original image**, as the guided filter in denoising operation. However, in order to reduce the processing time in laplacian matrix contruction, I firstly down-sampling the images to cut down the number of pixels in images. After being spectrally convolved (actually **it is only a dot product in frequency domain**), I up-sampled the output images to the original size as the guided filter in denoising image. The result (**test_smoothed** v.s **test_L_smoothed**) shown that the output with intra-pixels information could preserve more **edge details** and **show more color contrast** compared with output without extra information.
  <p align="center">
