@@ -1,6 +1,9 @@
  <h1 align="left">Spectral convolution with guided filter in denoising image</h1>
 <h2 align="center">  
  
+ ## Goal
+ Spectral convolution could 
+ 
   ## Introduction
   
 Learning models with suitable hypermeters is critical for the performance of models. However, we usually select hyperparameters manually and empirically. In order to sufficiently choose the combination of hypermeters (maybe continous or discrete), which deepens the exploration for the relationship between hyperparameters and overall perforamance, one of the possible way is to utilize the gaussian process model to explore the "dark side" (not well known region, a.k.a high covariance part) in the relationship and sampling some of the combination which benefits our understanding the most.
