@@ -2,7 +2,7 @@
 <h2 align="center">  
  
  ## Goal
- Spectral convolution could 
+ Spectral convolution could deal with data structure 
  
   ## Introduction
   
