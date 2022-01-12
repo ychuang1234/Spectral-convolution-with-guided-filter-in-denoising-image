@@ -2,7 +2,7 @@
 <h2 align="center">  
  
  ## Goal
- Spectral convolution could deal with data structure
+Using spectral convolution to gain the pixel-to-pixel relationship in images and make this information as a guided filter in image processing e.g., denoising image. 
  
   ## Introduction
   
