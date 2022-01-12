@@ -6,7 +6,7 @@ Using spectral convolution to gain the pixel-to-pixel relationship in images and
  
   ## Introduction
   
-Learning models with suitable hypermeters is critical for the performance of models. However, we usually select hyperparameters manually and empirically. In order to sufficiently choose the combination of hypermeters (maybe continous or discrete), which deepens the exploration for the relationship between hyperparameters and overall perforamance, one of the possible way is to utilize the gaussian process model to explore the "dark side" (not well known region, a.k.a high covariance part) in the relationship and sampling some of the combination which benefits our understanding the most.
+Normal convolution could be deal with data with regular coordination (e.g., Cartesian coordinate). However, not all input could be presented in regular coordination, such as social network relationship, multi-sensor audio processing. Therefore, spectral convolution treated the input as a graph, with each representation as the vertice in graph, and 
 
 <p align="center">
 <img src="https://github.com/ychuang1234/Spectral-convolution-with-guided-filter-in-denoising-image/blob/412cabe205045339f7b8a942a5eed8f43c078790/spectral_conv.JPG" width="80%"></p>  
